@@ -20,18 +20,18 @@ func TestLogLevel(t *testing.T) {
 	logger.Warning("Test", "level", 3)
 	logger.Error("Test", "level", 4)
 	log.Print(logBuf)
-	if len(logBuf) != 3 && strings.Index(logBuf[0], standard.LogInfoName) != -1 {
+	if len(logBuf) != 3 && strings.Index(logBuf[0], standard.LogLevelInfo) != -1 {
 		t.Error("default test failed")
 	}
 
 	logBuf = []string{}
-	logger.SetLevel(standard.LogWarning)
+	logger.SetLevel(LogLevelWarning)
 	logger.SetTruncations("/ssgo/")
 	logger.Debug("Test", "level", 1)
 	logger.Info("Test", "level", 2)
 	logger.Warning("Test", "level", 3)
 	logger.Error("Test", "level", 4)
-	if len(logBuf) != 2 && strings.Index(logBuf[0], standard.LogWarningName) != -1 && strings.Index(logBuf[1], "/ssgo/") == -1 {
+	if len(logBuf) != 2 && strings.Index(logBuf[0], standard.LogLevelWarning) != -1 && strings.Index(logBuf[1], "/ssgo/") == -1 {
 		t.Error("default test failed")
 	}
 }
@@ -50,7 +50,7 @@ func TestLogRequest(t *testing.T) {
 	if len(logBuf) < 1 {
 		t.Fatal("request test failed")
 	}
-	if len(logBuf) != 1 && strings.Index(logBuf[0], standard.LogRequestAuthLevelFieldName) != -1 {
+	if len(logBuf) != 1 && strings.Index(logBuf[0], standard.LogFieldRequestAuthLevel) != -1 {
 		t.Error("request test failed")
 	}
 }
