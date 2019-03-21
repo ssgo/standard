@@ -45,7 +45,7 @@ func TestLogRequest(t *testing.T) {
 
 	startTime := time.Now()
 	time.Sleep(100*time.Nanosecond)
-	logger.LogRequest("appA", "10.3.22.178:32421", "59.32.113.241", "appB:10.3.22.171:12334", "HJDWAdaukhASd7", "8suAHDgsyakHU", "udaHdhagy31Dd", "abc.com", 1, 2, "POST", "/users/{userId}/events", map[string]string{"Access-Token": "ab****fg"}, map[string]interface{}{"userId": 31123}, standard.MakeUesdTime(startTime, time.Now()), 200, map[string]string{"XXX": "abc"}, 3401, map[string]interface{}{"events": nil}, map[string]interface{}{"specialTag": true})
+	logger.LogRequest("appA", "10.3.22.178:32421", "59.32.113.241", "appB", "10.3.22.171:12334", "HJDWAdaukhASd7", "8suAHDgsyakHU", "udaHdhagy31Dd", "abc.com", 1, 2, "POST", "/users/{userId}/events", map[string]string{"Access-Token": "ab****fg"}, map[string]interface{}{"userId": 31123}, standard.MakeUesdTime(startTime, time.Now()), 200, map[string]string{"XXX": "abc"}, 3401, map[string]interface{}{"events": nil}, map[string]interface{}{"specialTag": true})
 	log.Print(logBuf)
 	if len(logBuf) < 1 {
 		t.Fatal("request test failed")
