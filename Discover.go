@@ -1,5 +1,11 @@
 package standard
 
+import (
+	"github.com/ssgo/utility"
+	"net/http"
+	"strings"
+)
+
 /*
 	注册中心使用redis，存储类型 hash
 	Key：app	应用名称
@@ -25,5 +31,41 @@ const DiscoverHeaderClientId = "X-Client-ID"         // 客户唯一编号，通
 const DiscoverHeaderSessionId = "X-Session-ID"       // 会话唯一编号，通过 X-Session-ID 续传
 const DiscoverHeaderRequestId = "X-Request-ID"       // 请求唯一编号，通过 X-Request-ID 续传
 const DiscoverHeaderHost = "X-Host"                  // 真实用户请求的Host，通过 X-Host 续传
-const DiscoverHeaderApp = "X-App"                    // 来自那个应用
-const DiscoverHeaderNode = "X-Node"                  // 来自那个节点
+
+type DiscoverHeader struct {
+	ClientIp  string
+	ClientId  string
+	SessionId string
+	RequestId string
+	Host      string
+}
+
+func GetDiscoverHeader(request *http.Request) *DiscoverHeader {
+	dh := DiscoverHeader{}
+	dh.ClientIp = request.Header.Get(DiscoverHeaderClientIp)
+	dh.ClientId = request.Header.Get(DiscoverHeaderClientId)
+	dh.SessionId = request.Header.Get(DiscoverHeaderSessionId)
+	dh.RequestId = request.Header.Get(DiscoverHeaderRequestId)
+	dh.Host = request.Header.Get(DiscoverHeaderHost)
+
+	if dh.ClientIp == "" {
+		pos := strings.IndexByte(request.RemoteAddr, ':')
+		if pos >= 0 {
+			dh.ClientIp = request.RemoteAddr[0:pos]
+		} else {
+			dh.ClientIp = request.RemoteAddr
+		}
+		request.Header.Set(DiscoverHeaderClientIp, dh.ClientIp)
+	}
+
+	if dh.RequestId == "" {
+		dh.RequestId = utility.UniqueId()
+		request.Header.Set(DiscoverHeaderRequestId, dh.RequestId)
+	}
+
+	if dh.Host == "" {
+		dh.Host = request.Host
+	}
+
+	return &dh
+}
