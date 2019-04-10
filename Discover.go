@@ -21,6 +21,7 @@ package standard
 
 const DiscoverDefaultRegistry = "127.0.0.1:6379::15" // 默认注册中心配置
 const DiscoverHeaderClientIp = "X-Real-IP"           // 真实的用户IP，通过 X-Real-IP 续传
+const DiscoverHeaderForwardedFor = "X-Forwarded-For" // 客户端IP列表，通过 X-Forwarded-For 接力续传
 const DiscoverHeaderClientId = "X-Client-ID"         // 客户唯一编号，通过 X-Client-ID 续传
 const DiscoverHeaderSessionId = "X-Session-ID"       // 会话唯一编号，通过 X-Session-ID 续传
 const DiscoverHeaderRequestId = "X-Request-ID"       // 请求唯一编号，通过 X-Request-ID 续传
