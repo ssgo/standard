@@ -26,3 +26,5 @@ const DiscoverHeaderClientId = "X-Client-ID"         // 客户唯一编号，通
 const DiscoverHeaderSessionId = "X-Session-ID"       // 会话唯一编号，通过 X-Session-ID 续传
 const DiscoverHeaderRequestId = "X-Request-ID"       // 请求唯一编号，通过 X-Request-ID 续传
 const DiscoverHeaderHost = "X-Host"                  // 真实用户请求的Host，通过 X-Host 续传
+const DiscoverHeaderFromApp = "X-From-App"           // 来源App，通过 X-From-App 传递
+const DiscoverHeaderFromNode = "X-From-Node"         // 来源节点，通过 X-From-Node 传递
