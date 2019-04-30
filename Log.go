@@ -73,7 +73,7 @@ type ServerErrorLog struct {
 }
 
 type TaskLog struct {
-	InfoLog
+	BaseLog
 	ServerId string  // 服务编号（用于跟踪哪一个服务）
 	App      string  // 运行什么应用
 	Name     string  // 统计项目
