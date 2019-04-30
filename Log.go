@@ -4,14 +4,15 @@ const LogTypeDebug = "debug"
 const LogTypeInfo = "info"
 const LogTypeWarning = "warning"
 const LogTypeError = "error"
-const LogTypeUndefined = "undefined" // 无法识别的日志类型
-
-const LogTypeDb = "db"           // 数据库操作日志类型
-const LogTypeDbError = "dbError" // 数据库错误日志类型
-
-const LogTypeStatistic = "statistic" // 统计日志类型
-
-const LogTypeRequest = "request" // 服务请求日志类型
+const LogTypeUndefined = "undefined"     // 无法识别的
+const LogTypeDb = "db"                   // 数据库操作
+const LogTypeDbError = "dbError"         // 数据库错误
+const LogTypeServer = "server"           // 服务信息
+const LogTypeServerError = "serverError" // 服务错误
+const LogTypeTask = "task"               // 任务
+const LogTypeMonitor = "monitor"         // 监控
+const LogTypeStatistic = "statistic"     // 统计
+const LogTypeRequest = "request"         // 服务请求
 
 type BaseLog struct {
 	LogType string  // 日志类型
@@ -57,9 +58,47 @@ type DBErrorLog struct {
 	DBLog
 }
 
+type ServerLog struct {
+	InfoLog
+	App       string  // 运行什么应用
+	Weight    string  // 服务的权重
+	Node      string  // 运行在哪个节点（ip:port）
+	Proto     string  // 工作协议，例如：http1.1、http2.0、h2c
+	StartTime float64 // 服务启动时间
+}
+
+type ServerErrorLog struct {
+	ErrorLog
+	ServerLog
+}
+
+type TaskLog struct {
+	InfoLog
+	ServerId string  // 服务编号（用于跟踪哪一个服务）
+	App      string  // 运行什么应用
+	Name     string  // 统计项目
+	Succeed  bool    // 是否成功
+	UsedTime float32 // 处理请求花费的时间，格式为float32，单位毫秒
+	Memo     string  // 备注
+}
+
+type MonitorLog struct {
+	BaseLog
+	Name       string  // 监控项目
+	Target     string  // 监控目标
+	TargetInfo string  // 目标信息，例如：DNS、URL
+	Expect     string  // 预期结果
+	Result     string  // 实际结果
+	Succeed    bool    // 是否成功
+	UsedTime   float32 // 处理请求花费的时间，格式为float32，单位毫秒
+	Memo       string  // 备注
+}
+
 type StatisticLog struct {
 	BaseLog
-	Project   string  // 统计项目
+	ServerId  string  // 服务编号（用于跟踪哪一个服务）
+	App       string  // 运行什么应用
+	Name      string  // 统计项目
 	StartTime float64 // 开始时间
 	EndTime   float64 // 结束时间
 	Total     uint    // 总次数
@@ -71,6 +110,7 @@ type StatisticLog struct {
 
 type RequestLog struct {
 	BaseLog
+	ServerId           string                 // 服务编号（用于跟踪哪一个服务）
 	App                string                 // 应用名
 	Node               string                 // 处理请求的节点，ip:port
 	ClientIp           string                 // 真实的用户IP，通过 X-Real-IP 续传
