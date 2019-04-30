@@ -61,7 +61,7 @@ type DBErrorLog struct {
 type ServerLog struct {
 	InfoLog
 	App       string  // 运行什么应用
-	Weight    string  // 服务的权重
+	Weight    int     // 服务的权重
 	Node      string  // 运行在哪个节点（ip:port）
 	Proto     string  // 工作协议，例如：http1.1、http2.0、h2c
 	StartTime float64 // 服务启动时间
