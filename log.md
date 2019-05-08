@@ -19,9 +19,12 @@
 | logLevel |string | 日志级别 | 必填项 | 内容必须为以下：debug, info, warning, error |
 | traceId |string |日志Id, 如有请填写。| 可选项 | <br>最好使用gateway统一生成的UUId类标识,算法可以是[snowflake](https://blog.twitter.com/2010/announcing-snowflake) 和 uuId[rfc4122](https://tools.ietf.org/html/rfc4122) |
 | app |string | 日志来源,日志生产者 | 必填项 |  收集程序补全|
-| logMachineId | string | 机器Id(Ip地址) | 可选项 | 收集程序补全|
+| appImage |string | 服务镜像 | 必填项 |  收集程序补全|
+| appVersion | string | 服务版本 | 可选项 | 收集程序补全|
+| serverName |string | 服务(宿主机器)名称 | 必填项 |  收集程序补全|
+| serverIp | string | 服务(宿主机器)Ip地址 | 可选项 | 收集程序补全|
 
-收集程序还需要补全机器标识信息: 以Ip地址来标识。
+收集程序负责补全信息。
 
 ### 2.2 应用服务日志格式说明
 以下类型中对于主要字段，推荐但不限制表格中字段。个性化字段信息请自行添加，满足需求即可。
@@ -357,7 +360,7 @@ server类型用于描述服务运行错误的情况信息
 }
 ```
 
-#### 2.2.5 monitor监控类型
+#### 2.2.8 monitor监控类型
 用于监控项目情况。
 
 * 主要字段说明
@@ -392,7 +395,7 @@ server类型用于描述服务运行错误的情况信息
 ```
 
 
-#### 2.2.5 task类型
+#### 2.2.9 task类型
 用于记录task执行情况。主要用于一个请求或处理涉及几个子任务的场景。
 
 * 主要字段说明
@@ -421,55 +424,5 @@ server类型用于描述服务运行错误的情况信息
 }
 ```
 
-## 3 业务日志
-业务人员使用,主要用来做数据统计分析。
 
-**因服务端和客户端日志格式差异比较大, 客户端上报打点日志格式规范单独制定。**
-
-### 3.1 服务端业务日志公共部分
-
-注：以下是日志格式中,json关键字说明
-日志头部分
-
-| 名称 | 字段类型| 描述|  必填项 or 可选项 | 备注 |
-| :------ | :------ |:----------- | :------------ | :------|
-| logLevel | string | 日志级别 | 必填项 | 内容必须为以下：info |
-| logTime |string | 日志时间（CST） |  必填项| 格式为:1552718260.2895439|
-| logType |string |应用类型| 必填项| 由具体业务决定, 如保存课件"jpjy-saveCourseWare",可根据实际情况修改|
-| traceId |string |日志Id, 必须填写(去重依据)。| 必填项| <br>最好使用gateway统一生成的UUId类标识,算法可以是[snowflake](https://blog.twitter.com/2010/announcing-snowflake) 和 uuId[rfc4122](https://tools.ietf.org/html/rfc4122) |
-| app |string | 日志来源,日志生产者| 必填项 |  收集程序补全|
-| logMachineId | string |  机器Id(Ip地址) | 可选项 | 收集程序补全|
-
-收集程序还需要补全机器标识信息: 以Ip地址来标识。
-
-
-### 3.2 业务日志格式说明
-以下类型中对于主要字段，推荐但不限制表格中字段。个性化字段信息请自行添加，满足业务需求即可。
-
-#### 3.2.1 jpjy-saveCourseWare类型
-记录saveCourseWare行为。统计保存课件行为，如果有选择好未来的题目就会记录下来
-
-* 主要字段说明
-
-|字段名称 |字段类型 |备注  |必填项 or 可选项  |
-| :--- | :--- | :--- | :--- |
-| paperId | string |好未来paper的Id | 必填项 |
-| quizId | string | 题目Id | 必填项 |
-| lessonPlanId | string | 课程Id |必填项|
-| saveTime | string| 保存时间 | 必填项 |
-
-* 例子:
-
-```json
-{
-	"logTime": 1552718260.2895439,
-	"traceId": "1119119575900753920",
-	"app": "learnHmHwl",
-	"logType": "jpjy-saveCourseWare",
-	"paperId": "45937407F9354322A81BE7A9F64884AB",
-	"quizId":"b95e2101f6b942a790134eacc18454cd",
-	"lessonPlanId": "7494856",
-	"saveTime": 1552718260.2895439,
-}
-```
 
