@@ -18,11 +18,10 @@
 | logTime |string | 日志时间 | 必填项 | 格式为:1552718260.2895439|
 | logLevel |string | 日志级别 | 必填项 | 内容必须为以下：debug, info, warning, error |
 | traceId |string |日志Id, 如有请填写。| 可选项 | <br>最好使用gateway统一生成的UUId类标识,算法可以是[snowflake](https://blog.twitter.com/2010/announcing-snowflake) 和 uuId[rfc4122](https://tools.ietf.org/html/rfc4122) |
-| app |string | 日志来源,日志生产者 | 必填项 |  收集程序补全|
-| appImage |string | 服务镜像 | 必填项 |  收集程序补全|
-| appVersion | string | 服务版本 | 可选项 | 收集程序补全|
-| serverName |string | 服务(宿主机器)名称 | 必填项 |  收集程序补全|
-| serverIp | string | 服务(宿主机器)Ip地址 | 可选项 | 收集程序补全|
+| appImage |string | 服务镜像信息 | 可选项|  收集程序补全|
+| appVersion | string | 服务版本信息 | 可选项 | 收集程序补全|
+| serverName |string | 服务主机(宿主机器)名称 | 可选项 |  收集程序补全|
+| serverIp | string | 服务主机(宿主机器)Ip地址 | 可选项 | 收集程序补全|
 
 收集程序负责补全信息。
 
@@ -39,6 +38,7 @@
 | sessionId | string | session标识,如有请填写 | 可选项 |
 | clientId | string | 客户Id,如有请填写 | 可选项 |
 | clientIp | string | 客户端Ip地址 | 必填项 |
+| app | string| 应用名称, 如有请填写 | 可选项 |
 | host | string |请求主机 | 必填项 |
 | method | string | 请求方法,如"GET","POST","PUT"等| 必填项 |
 | path | string | 请求路径 | 必填项 |
@@ -52,7 +52,7 @@
 | responseData | string | 返回数据,如有请填写 | 可选项 |
 | responseDataLength | string |返回数据长度,如有请填写 | 可选项 |
 | responseHeaders | string | 返回数据headers| 可选项 |
-| usedTime | number | 处理时间(精确到毫秒) | 可选项 |
+| usedTime | number | 处理请求花费时间(单位秒精确到毫秒) | 可选项 |
 | fromApp | string| 来源应用,如有请填写 | 可选项 |
 | fromNode | string | 来源节点,如有请填写 | 可选项 |
 
@@ -65,7 +65,6 @@
 	"traceId": "1119119361907363840",
 	"requestId": "1119119361907363840",
 	"logType": "request",
-	"app": "web",
 	"app": "appA",
 	"authLevel": 1,
 	"fromApp": "appB",
@@ -156,7 +155,6 @@ server类型用于记录服务运行情况
 	"logLevel": "info",
 	"logTime": 1552718260.2895439,
 	"logType": "server",
-	"app": "learn",
 	"weight": 80,
 	"node": "172.16.1.1:8080",
 	"proto": "h2c",
@@ -185,7 +183,6 @@ server类型用于描述服务运行错误的情况信息
 	"logLevel": "error",
 	"logTime": 1552718268.2334243,
 	"logType": "serverError",
-	"app": "learn"
 	"weight": 80,
 	"node": "172.16.1.1:8080",
 	"proto": "h2c",
@@ -206,7 +203,7 @@ server类型用于描述服务运行错误的情况信息
 | dsn | string | DB地址或者nosql地址如: "mysql://192.168.2.11:3306/test"; "redis://192.168.1.1:6379/0"; "mc://192.168.1.1:11211"; "kafka://192.168.1.1:9092,192.168.1.2:9092,192.168.1.3:9092/topic" | 必填项 |
 | query | string | 执行sql语句或执行nosql命令 | 可选项 |
 | args  | array | 执行sql语句或nosql命令的参数 | 可选项 |
-| usedTime | number | 处理时间,精确到ms | 必填项 |
+| usedTime | number | 执行sql语句花费时间(单位秒精确到毫秒) | 必填项 |
 
 * 例子1: 
 
@@ -215,7 +212,6 @@ server类型用于描述服务运行错误的情况信息
 	"logLevel": "info",
 	"logTime": 1552718260.2895439,
 	"logType": "db",
-	"app": "web",
 	"dbType": "mysql",
 	"dsn": "mysql://192.168.2.11:3306/test",
 	"query": "select aa, bb from table where Id = ?",
@@ -231,7 +227,6 @@ server类型用于描述服务运行错误的情况信息
 	"logLevel": "info",
 	"logTime": 1552718260.2895439,
 	"logType": "db",
-	"app": "web",
 	"dbType": "redis",
 	"dsn": "redis://192.168.2.11:6379/0",
 	"query": "HSET website mail",
@@ -247,7 +242,6 @@ server类型用于描述服务运行错误的情况信息
 	"logLevel": "info",
 	"logTime": 1552718260.2895439,
 	"logType": "db",
-	"app": "web",
 	"dbType": "kafka",
 	"dsn": "kafka://192.168.1.1:9092,192.168.1.2:9092,192.168.1.3:9092/topic",
 	"query": "producer",
@@ -268,7 +262,7 @@ server类型用于描述服务运行错误的情况信息
 | query | string | 执行sql语句或执行nosql命令 | 必填项 |
 | args | array | 执行sql语句或nosql命令的参数 | 可选项 |
 | msg | string | 执行sql语句出错时填写错误信息,如有错误码, 请按照"errorCode:msg"记录日志内容 | 必填项 |
-| usedTime | number | 处理时间,精确到ms | 可选项 |
+| usedTime | number | 执行sql语句花费时间(单位秒精确到毫秒) | 可选项 |
 
 * 例子
 
@@ -277,7 +271,6 @@ server类型用于描述服务运行错误的情况信息
 	"logLevel": "error",
 	"logTime": 1552718260.2895439,
 	"logType": "dbError",
-	"app": "web",
 	"dbType": "mysql",
 	"dsn": "mysql://192.168.2.11:3306/test",
 	"query": "select aa, bb from notable where Id = ?",
@@ -300,9 +293,9 @@ server类型用于描述服务运行错误的情况信息
 | endTime | number | 结束时间 | 必填项 |
 | total | number | 总次数| 可选项 |
 | failed | number | 失败次数 | 可选项 |
-| avgTime | number | 平均用时(精确到毫秒) | 可选项 |
-| minTime | number | 最小用时(精确到毫秒) | 可选项 |
-| maxTime | number | 最大用时(精确到毫秒) | 可选项 |
+| avgTime | number | 平均用时(单位秒精确到毫秒) | 可选项 |
+| minTime | number | 最小用时(单位秒精确到毫秒) | 可选项 |
+| maxTime | number | 最大用时(单位秒精确到毫秒) | 可选项 |
 
 * 例子
 
@@ -310,7 +303,6 @@ server类型用于描述服务运行错误的情况信息
 {
 	"logTime": 1552718260.2895439,
 	"logType": "statistics",
-	"app": "statisticsTool",
 	"serverId": "learn",
 	"name": "status",
 	"startTime": 1552718200.2895439,
@@ -331,7 +323,7 @@ server类型用于描述服务运行错误的情况信息
 |字段名称 |字段类型 |备注  |必填项 or 可选项  |
 | :--- | :--- | :--- | :--- |
 | msg | string |日志信息,如有错误码, 请按照"errorCode:msg"记录日志内容| 必填项 |
-| callStacks | [array string |用于调用栈跟踪,如有请填写 |可选项 |
+| callStacks | array string |用于调用栈跟踪,如有请填写 |可选项 |
 
 * 例子1:
 
@@ -339,7 +331,6 @@ server类型用于描述服务运行错误的情况信息
 {
 	"logLevel": "error",
 	"logTime": "1552718260.2895439",
-	"app": "web",
 	"logType": "system",
 	"msg":"1002:file does not exist"
 }
@@ -351,7 +342,6 @@ server类型用于描述服务运行错误的情况信息
 {
     "logLevel":"debug",
     "logTime":"1552718260.2895439",
-    "app":"web",
     "logType":"system",
     "callStacks":[
         "/Volumes/Star/com.isstar/ssgo/standard/simple/Logger_test.go:20"
@@ -373,7 +363,7 @@ server类型用于描述服务运行错误的情况信息
 | expect | string | 预期结果| 必填项 |
 | result | string | 实际结果| 必填项 |
 | isSuccess | bool | 是否成功| 必填项 |
-| useTime | number | 处理请求花费的时间(精确到毫秒)| 必填项 |
+| usedTime | number | 监控项目花费的时间(单位秒精确到毫秒)| 必填项 |
 | memo | string | 备注 | 可选项 |
 
 
@@ -383,14 +373,13 @@ server类型用于描述服务运行错误的情况信息
 {
 	"logTime": 1552718260.2895439,
 	"logType": "monitor",
-	"app": "checkHealth",
 	"name": "service",
 	"target": "learn",
 	"targetInfo": "http://192.168.1.1:8000/ping",
 	"expect": "pong",
 	"Result": "pong",
-   "isSuccess": true,
-	"useTime": 0.050,
+	"isSuccess": true,
+	"usedTime": 0.050,
 }
 ```
 
@@ -405,7 +394,7 @@ server类型用于描述服务运行错误的情况信息
 | serverId | string | 服务编号（用于跟踪哪一个服务）| 必填项 |
 | name | string | task名字| 必填项 |
 | success | bool | 是否成功| 必填项 |
-| useTime | number | 处理请求花费的时间(精确到毫秒)| 必填项 |
+| usedTime | number | 处理task花费的时间(单位秒精确到毫秒)| 必填项 |
 | memo | string | 备注 | 可选项 |
 
 
@@ -415,12 +404,10 @@ server类型用于描述服务运行错误的情况信息
 {
 	"logTime": 1552718260.2895439,
 	"logType": "task",
-	"app": "push",
 	"serverId": "learn",
 	"name": "step1-get-users",
 	"isSuccess": true,
-	"useTime": 0.550,
-	
+	"usedTime": 0.550,
 }
 ```
 
