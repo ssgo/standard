@@ -14,6 +14,8 @@ const LogTypeMonitor = "monitor"         // 监控
 const LogTypeStatistic = "statistic"     // 统计
 const LogTypeRequest = "request"         // 服务请求
 
+var LogDefaultSensitive = []string{"phone", "password", "secure", "token", "accessToken"}
+
 type BaseLog struct {
 	LogType string  // 日志类型
 	LogTime float64 // 日志时间，格式为float64，单位秒
