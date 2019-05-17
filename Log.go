@@ -16,6 +16,11 @@ const LogTypeRequest = "request"         // 服务请求
 
 var LogDefaultSensitive = []string{"phone", "password", "secure", "token", "accessToken"}
 
+const LogEnvLevel = "LOG_LEVEL"                   // 日志级别，debug、info、warning、error，默认值：info
+const LogEnvFile = "LOG_FILE"                     // 日志文件，默认输出到 stdout
+const LogEnvSensitive = "LOG_SENSITIVE"           // 日志脱敏字段，默认值：standard.LogDefaultSensitive
+const LogEnvRegexSensitive = "LOG_REGEXSENSITIVE" // 日志脱敏正则，无特殊情况不建议使用
+
 type BaseLog struct {
 	LogType string  // 日志类型
 	LogTime float64 // 日志时间，格式为float64，单位秒

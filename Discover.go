@@ -19,7 +19,6 @@ package standard
 	服务间调用协议为 h2c，需要在每一次调用时传递下列头部信息以确保在每一个服务节点上能够有效处理和记录数据
 */
 
-const DiscoverDefaultRegistry = "127.0.0.1:6379::15" // 默认注册中心配置
 const DiscoverHeaderClientIp = "X-Real-IP"           // 真实的用户IP，通过 X-Real-IP 续传
 const DiscoverHeaderForwardedFor = "X-Forwarded-For" // 客户端IP列表，通过 X-Forwarded-For 接力续传
 const DiscoverHeaderClientId = "X-Client-ID"         // 客户唯一编号，通过 X-Client-ID 续传
@@ -29,3 +28,8 @@ const DiscoverHeaderHost = "X-Host"                  // 真实用户请求的Hos
 const DiscoverHeaderScheme = "X-Scheme"              // 真实用户请求的 http or https，通过 X-Scheme 续传
 const DiscoverHeaderFromApp = "X-From-App"           // 来源App，通过 X-From-App 传递
 const DiscoverHeaderFromNode = "X-From-Node"         // 来源节点，通过 X-From-Node 传递
+
+const DiscoverDefaultRegistry = "127.0.0.1:6379::15" // 默认注册中心配置
+const DiscoverEnvRegistry = "DISCOVER_REGISTRY"      // 注册中心地址，"127.0.0.1:6379:15"、"127.0.0.1:6379:15:password"
+const DiscoverEnvApp = "DISCOVER_APP"                // 应用名，注册为服务
+const DiscoverEnvCalls = "DISCOVER_CALLS"            // 被调用的应用信息，{"app1":{},"app2":{"timeout":1000, "headers": {"Access-Token": "xxx"}}}
