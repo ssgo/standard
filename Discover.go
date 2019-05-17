@@ -32,4 +32,5 @@ const DiscoverHeaderFromNode = "X-From-Node"         // 来源节点，通过 X-
 const DiscoverDefaultRegistry = "127.0.0.1:6379::15" // 默认注册中心配置
 const DiscoverEnvRegistry = "DISCOVER_REGISTRY"      // 注册中心地址，"127.0.0.1:6379:15"、"127.0.0.1:6379:15:password"
 const DiscoverEnvApp = "DISCOVER_APP"                // 应用名，注册为服务
-const DiscoverEnvCalls = "DISCOVER_CALLS"            // 被调用的应用信息，{"app1":{},"app2":{"timeout":1000, "headers": {"Access-Token": "xxx"}}}
+const DiscoverEnvWeight = "DISCOVER_WEIGHT"          // 应用权重，默认值：100
+const DiscoverEnvCalls = "DISCOVER_CALLS"            // 被调用的应用定义，{"app1": "5000:token", "app2": "1000"}，也可以使用 DISCOVER_CALLS_app1=timeout:token，token会通过 Access-Token 头进行传递
