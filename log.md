@@ -26,6 +26,27 @@
 收集程序负责补全信息。
 
 ### 2.2 应用服务日志格式说明
+
+一条应用服务日志为例输出结构如下：
+
+    2019/06/13 09:38:36.572087 {"app":"","authLevel":0,"clientId":"","clientIp":"127.0.0.1","fromApp":"","fromNode":"","host":"127.0.0.1:8081","logTime":1560389916.572087,"logType":"request","method":"POST","node":"10.59.10.143:8081","p
+    ath":"/sskey","priority":0,"proto":"1.1","requestData":{"dawei":"JRygtTB3qLRW6XDwUXCU4JjiReKqoXwvzLMgyJwkDoAPI98VCE5Bm8k+l3MfefoTcqxfRYNq+D4yx1I65B+DkdDye3p0ue/lhRQNGO/jQT1CJaPhk1MhYCu6jOU0ExSw","ldw":"ulbyB3aLloskgqNlrQFLWmq8CcRvTW
+    oqvIKY7AOF7wwHnrfHjjvkdWHodfwmflEyvIRKzj06Bg1Cy+8xC1+akN86tw+3xGWrGhIe83qKHQNttULmC3bCepjy6L4rsePS"},"requestHeaders":{"Content-Length":"277","Content-Type":"application/json","User-Agent":"Go-http-client/1.1","X-Host":"127.0.0.1:80
+    81","X-Real-Ip":"127.0.0.1","X-Request-Id":"d0SGlgd40uuAUZCDfiLP85","X-Scheme":"http"},"requestId":"d0SGlgd40uuAUZCDfiLP85","responseCode":200,"responseData":true,"responseDataLength":4,"responseHeaders":{},"scheme":"http","serverId
+    ":"T1uBk71ebv","sessionId":"","traceId":"d0SGlgd40uuAUZCDfiLP85","usedTime":0,"type":"ACCESS"}
+
+包含两个部分：
+
+* 前置时间
+
+格式为：Y/m/d H:i:s.us 年/月/日 24时/分/秒.微秒。
+
+* 日志主体
+
+格式为：日志明细内容的json格式输出。
+
+总体格式为："前置时间 json日志主体"。
+
 以下类型中对于主要字段，推荐但不限制表格中字段。个性化字段信息请自行添加，满足需求即可。
 
 #### 2.2.1 request类型
