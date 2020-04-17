@@ -29,7 +29,7 @@ type BaseLog struct {
 	ImageTag   string // docker镜像Tag
 	ServerName string // 服务主机(宿主机器)名称
 	ServerIp   string // 服务主机(宿主机器)Ip地址
-	Extra      map[string]string
+	Extra      map[string]interface{}
 }
 
 type DebugLog struct {
@@ -143,7 +143,7 @@ type RequestLog struct {
 	Method             string            // 请求的方法
 	Path               string            // 请求的路径，不包括GET参数部分，如果有PATH参数应该记录定义的PATH
 	RequestHeaders     map[string]string // 请求头，排除掉指定不需要信息后的所有头部内容，敏感数据应脱敏
-	RequestData        map[string]string // 请求的数据内容，JSON对象，集合类型仅记录少量内容，敏感数据应脱敏，非对象内容过大应做截取
+	RequestData        map[string]interface{} // 请求的数据内容，JSON对象，集合类型仅记录少量内容，敏感数据应脱敏，非对象内容过大应做截取
 	UsedTime           float32           // 处理请求花费的时间，格式为float32，单位毫秒
 	ResponseCode       int               // 应答代码，200 1000+ 正常应答，201～399，1～199  600～999 特殊应答，<1 异常应答
 	ResponseHeaders    map[string]string // 应答头，排除掉指定不需要信息后的所有头部内容，敏感数据应脱敏
