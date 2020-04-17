@@ -14,12 +14,13 @@
 
 | 名称 | 字段类型| 描述|  必填项 or 可选项 | 备注 |
 | :------ | :------ |:----------- | :------------ | :------|
+| logName |string |日志名称| 可选项 | 日志所属的服务名或者docker的镜像名|
 | logType |string |日志类型| 必填项 | 按照功能区分, 如: request, server, serverError, db, dbError, statistics, system(默认), monitor, task|
-| logTime |string | 日志时间 | 必填项 | 格式为:1552718260.2895439|
+| logTime |string | 日志时间 | 必填项 | 格式为: RFC3339Nano "2006-01-02T15:04:05.999999999Z07:00"|
 | logLevel |string | 日志级别 | 必填项 | 内容必须为以下：debug, info, warning, error |
 | traceId |string |日志Id, 如有请填写。| 可选项 | <br>最好使用gateway统一生成的UUId类标识,算法可以是[snowflake](https://blog.twitter.com/2010/announcing-snowflake) 和 uuId[rfc4122](https://tools.ietf.org/html/rfc4122) |
-| appImage |string | 服务镜像信息 | 可选项|  收集程序补全|
-| appVersion | string | 服务版本信息 | 可选项 | 收集程序补全|
+| imageName |string | docker镜像名字 | 可选项|  收集程序补全|
+| imageTag | string | docker镜像Tag | 可选项 | 收集程序补全|
 | serverName |string | 服务主机(宿主机器)名称 | 可选项 |  收集程序补全|
 | serverIp | string | 服务主机(宿主机器)Ip地址 | 可选项 | 收集程序补全|
 
@@ -412,12 +413,13 @@ server类型用于描述服务运行错误的情况信息
 
 |字段名称 |字段类型 |备注  |必填项 or 可选项  |
 | :--- | :--- | :--- | :--- |
-| serverId | string | 服务编号（用于跟踪哪一个服务）| 必填项 |
 | name | string | task名字| 必填项 |
+| args | string | 任务参数| 必填项 |
 | success | bool | 是否成功| 必填项 |
+| node | string | 运行在哪个节点（ip:port）| 必填项 |
+| startTime | float64 | 任务开始时间，格式为float64，单位秒| 必填项 |
 | usedTime | number | 处理task花费的时间(单位秒精确到毫秒)| 必填项 |
 | memo | string | 备注 | 可选项 |
-
 
 * 例子
 
