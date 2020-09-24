@@ -133,6 +133,12 @@ type RequestLog struct {
 	FromApp            string                 // 调用方应用
 	FromNode           string                 // 调用方节点，格式 ip:port
 	ClientId           string                 // 客户唯一编号，通过 X-Client-ID 续传
+
+	// add at 20200923
+	DeviceId             string
+	ClientAppName        string
+	ClientAppVersion     string
+
 	SessionId          string                 // 会话唯一编号，通过 X-Session-ID 续传
 	RequestId          string                 // 请求唯一编号，通过 X-Request-ID 续传
 	Host               string                 // 真实用户请求的Host，通过 X-Host 续传
@@ -149,4 +155,12 @@ type RequestLog struct {
 	ResponseHeaders    map[string]string      // 应答头，排除掉指定不需要信息后的所有头部内容，敏感数据应脱敏
 	ResponseDataLength uint                   // 应答的数据长度
 	ResponseData       string                 // 指定要记录的数据内容，JSON对象，集合类型仅记录少量内容，敏感数据应脱敏，非对象内容不进行记录
+
+	//DeviceType           string
+	//DeviceName           string
+	//DeviceBrowserName    string
+	//DeviceBrowserVersion string
+	//DeviceOSName         string
+	//DeviceOSVersion      string
+	//DeviceNetType        string
 }
