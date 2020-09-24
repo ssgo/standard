@@ -21,7 +21,7 @@ package standard
 
 const DiscoverHeaderClientIp = "X-Real-IP"                    // 真实的用户IP
 const DiscoverHeaderForwardedFor = "X-Forwarded-For"          // 客户端IP列表
-const DiscoverHeaderClientId = "X-Client-ID"                  // 客户唯一编号
+const DiscoverHeaderUserId = "X-User-ID"                      // 用户编号
 const DiscoverHeaderDeviceId = "X-Device-ID"                  // 设备唯一编号
 const DiscoverHeaderClientAppName = "X-Client-App-Name"       // 客户端App名字
 const DiscoverHeaderClientAppVersion = "X-Client-App-Version" // 客户端App版本号
@@ -33,15 +33,7 @@ const DiscoverHeaderFromApp = "X-From-App"                    // 来源App
 const DiscoverHeaderFromNode = "X-From-Node"                  // 来源节点
 const DiscoverHeaderUserAgent = "X-User-Agent"                // 真实用户的UserAgent
 
-var DiscoverRelayHeaders = []string{DiscoverHeaderClientIp, DiscoverHeaderForwardedFor, DiscoverHeaderClientId, DiscoverHeaderDeviceId, DiscoverHeaderClientAppName, DiscoverHeaderClientAppVersion, DiscoverHeaderSessionId, DiscoverHeaderRequestId, DiscoverHeaderHost, DiscoverHeaderScheme, DiscoverHeaderUserAgent}
-
-//const DiscoverHeaderDeviceType = "X-Device-Type"
-//const DiscoverHeaderDeviceName = "X-Device-Name"
-//const DiscoverHeaderDeviceBrowserName = "X-Device-BrowserName"
-//const DiscoverHeaderDeviceBrowserVersion = "X-Device-BrowserVersion"
-//const DiscoverHeaderDeviceOSName = "X-Device-OSName"
-//const DiscoverHeaderDeviceOSVersion = "X-Device-OSVersion"
-//const DiscoverHeaderDeviceNetType = "X-Device-NetType"
+var DiscoverRelayHeaders = []string{DiscoverHeaderClientIp, DiscoverHeaderForwardedFor, DiscoverHeaderUserId, DiscoverHeaderDeviceId, DiscoverHeaderClientAppName, DiscoverHeaderClientAppVersion, DiscoverHeaderSessionId, DiscoverHeaderRequestId, DiscoverHeaderHost, DiscoverHeaderScheme, DiscoverHeaderUserAgent}
 
 const DiscoverDefaultRegistry = "127.0.0.1:6379::15" // 默认注册中心配置
 const DiscoverEnvRegistry = "DISCOVER_REGISTRY"      // 注册中心地址，"127.0.0.1:6379:15"、"127.0.0.1:6379:15:password"
