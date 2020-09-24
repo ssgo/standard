@@ -19,21 +19,22 @@ package standard
 	服务间调用协议为 h2c，需要在每一次调用时传递下列头部信息以确保在每一个服务节点上能够有效处理和记录数据
 */
 
-const DiscoverHeaderClientIp = "X-Real-IP"           // 真实的用户IP
-const DiscoverHeaderForwardedFor = "X-Forwarded-For" // 客户端IP列表
-const DiscoverHeaderClientId = "X-Client-ID"         // 客户唯一编号
-const DiscoverHeaderSessionId = "X-Session-ID"       // 会话唯一编号
-const DiscoverHeaderRequestId = "X-Request-ID"       // 请求唯一编号
-const DiscoverHeaderHost = "X-Host"                  // 真实用户请求的Host
-const DiscoverHeaderScheme = "X-Scheme"              // 真实用户请求的 http or https
-const DiscoverHeaderFromApp = "X-From-App"           // 来源App
-const DiscoverHeaderFromNode = "X-From-Node"         // 来源节点
-
-// add at 20200923
-const DiscoverHeaderUserAgent = "X-User-Agent"                // 真实用户的UserAgent
+const DiscoverHeaderClientIp = "X-Real-IP"                    // 真实的用户IP
+const DiscoverHeaderForwardedFor = "X-Forwarded-For"          // 客户端IP列表
+const DiscoverHeaderClientId = "X-Client-ID"                  // 客户唯一编号
+const DiscoverHeaderDeviceId = "X-Device-ID"                  // 设备唯一编号
 const DiscoverHeaderClientAppName = "X-Client-App-Name"       // 客户端App名字
 const DiscoverHeaderClientAppVersion = "X-Client-App-Version" // 客户端App版本号
-const DiscoverHeaderDeviceId = "X-Device-ID"                  // 设备唯一编号
+const DiscoverHeaderSessionId = "X-Session-ID"                // 会话唯一编号
+const DiscoverHeaderRequestId = "X-Request-ID"                // 请求唯一编号
+const DiscoverHeaderHost = "X-Host"                           // 真实用户请求的Host
+const DiscoverHeaderScheme = "X-Scheme"                       // 真实用户请求的 http or https
+const DiscoverHeaderFromApp = "X-From-App"                    // 来源App
+const DiscoverHeaderFromNode = "X-From-Node"                  // 来源节点
+const DiscoverHeaderUserAgent = "X-User-Agent"                // 真实用户的UserAgent
+
+var DiscoverRelayHeaders = []string{DiscoverHeaderClientIp, DiscoverHeaderForwardedFor, DiscoverHeaderClientId, DiscoverHeaderDeviceId, DiscoverHeaderClientAppName, DiscoverHeaderClientAppVersion, DiscoverHeaderSessionId, DiscoverHeaderRequestId, DiscoverHeaderHost, DiscoverHeaderScheme, DiscoverHeaderUserAgent}
+
 //const DiscoverHeaderDeviceType = "X-Device-Type"
 //const DiscoverHeaderDeviceName = "X-Device-Name"
 //const DiscoverHeaderDeviceBrowserName = "X-Device-BrowserName"
