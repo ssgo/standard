@@ -14,7 +14,7 @@ const LogTypeMonitor = "monitor"         // 监控
 const LogTypeStatistic = "statistic"     // 统计
 const LogTypeRequest = "request"         // 服务请求
 
-const LogDefaultSensitive = "phone,password,secure,token,accessToken" // 默认脱敏字段
+const LogDefaultSensitive = "phone,password,secret,token,accessToken" // 默认脱敏字段
 const LogEnvLevel = "LOG_LEVEL"                                       // 日志级别，debug、info、warning、error，默认值：info
 const LogEnvFile = "LOG_FILE"                                         // 日志文件，默认输出到 stdout
 const LogEnvSensitive = "LOG_SENSITIVE"                               // 日志脱敏字段，默认值：standard.LogDefaultSensitive
