@@ -119,9 +119,9 @@ type StatisticLog struct {
 	EndTime   string  // 日志时间，格式为 RFC3339Nano "2006-01-02T15:04:05.999999999Z07:00"
 	Total     uint    // 总次数
 	Failed    uint    // 失败次数
-	AvgTime   float32 // 平均用时
-	MinTime   float32 // 最少用时
-	MaxTime   float32 // 最多用时
+	Avg       float64 // 平均
+	Min       float64 // 最小值
+	Max       float64 // 最大值
 }
 
 type RequestLog struct {
