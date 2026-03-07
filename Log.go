@@ -34,8 +34,8 @@ type BaseLog struct {
 
 type DebugLog struct {
 	BaseLog
-	Debug      string   // 调试信息
-	CallStacks []string // 调用堆栈
+	Debug string // 调试信息
+	// CallStacks []string // 调用堆栈
 }
 
 type InfoLog struct {
